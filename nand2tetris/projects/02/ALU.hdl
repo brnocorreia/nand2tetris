@@ -55,32 +55,15 @@ CHIP ALU {
     Mux16(a = groupmux12, b = sumgroupmux12, sel = f, out = groupmux3);
 
     Not16(in = groupmux3, out = notgroupmux3);
-    Mux16(a = groupmux3, b = notgroupmux3, sel = no, out = out, out[0] = put0, out[1] = put1, out[2] = put2, out[3] = put3, out[4] = put4, out[5] = put5, out[6] = put6, out[7] = put7, out[8] = put8, out[9] = put9, out[10] = put10, out[11] = put11, out[12] = put12, out[13] = put13, out[14] = put14, out[15] = put15, out[15] = ng);
+    Mux16(a = groupmux3, b = notgroupmux3, sel = no, out = out, out[0..7]=out07, out[8..15]=out815, out[15]=ng);
 
-    Or(a = put0, b = put1, out = or12);
-    Or(a = put2, b = put3, out = or23);
+    Or8Way (in=out07, out=or07);
+    Or8Way (in=out815, out=or815);
 
-    Or(a = put4, b = put5, out = or45);
-    Or(a = put6, b = put7, out = or67);
-
-    Or(a = put8, b = put9, out = or89);
-    Or(a = put10, b = put11, out = or1011);
-
-    Or(a = put12, b = put13, out = or1213);
-    Or(a = put14, b = put15, out = or1415);
-
-    Or(a = or12, b = or23, out = orab);
-    Or(a = or45, b = or67, out = orcd);
-
-    Or(a = or89, b = or1011, out = oref);
-    Or(a = or1213, b = or1415, out = orgh);
-
-    Or(a = orab, b = orcd , out = orx);
-    Or(a = oref, b = orgh, out = ory);
-
-    Or(a = orx, b = ory, out = orz);
-
-    Not(in = orz, out = zr);
+    Or(a = or07, b = or815, out = orx);
+    Not(in = orx, out = zr);
     
+
+
 
 }
